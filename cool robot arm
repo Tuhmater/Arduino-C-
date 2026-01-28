@@ -1,0 +1,61 @@
+#include <Servo.h>
+
+Servo servos[5];
+
+const int servoPins[5] = {10, 9, 6, 5, 3};
+const int potPins[4]   = {A14, A13, A12, A11};
+const int buttonPin   = A15;
+
+// Smaller deadzone
+const int deadzone = 2;
+
+int lastAngles[5] = {90, 90, 90, 90, 90};
+
+// Button state tracking
+bool servo1State = false;        // false = 0°, true = 180°
+bool lastButtonState = HIGH;
+
+void setup() {
+  for (int i = 0; i < 5; i++) {
+    servos[i].attach(servoPins[i]);
+    servos[i].write(lastAngles[i]);
+  }
+
+  pinMode(buttonPin, INPUT_PULLUP);
+}
+
+void loop() {
+
+  // ----- BUTTON TOGGLE FOR SERVO 1 -----
+  bool currentButtonState = digitalRead(buttonPin);
+
+  // Detect button press (HIGH → LOW)
+  if (lastButtonState == HIGH && currentButtonState == LOW) {
+    servo1State = !servo1State;  // toggle state
+
+    if (servo1State) {
+      servos[0].write(180);
+      lastAngles[0] = 180;
+    } else {
+      servos[0].write(0);
+      lastAngles[0] = 0;
+    }
+
+    delay(200); // simple debounce
+  }
+
+  lastButtonState = currentButtonState;
+
+  // ----- POTS CONTROL SERVOS 2–5 -----
+  for (int i = 1; i < 5; i++) {
+    int potValue = analogRead(potPins[i - 1]);
+    int angle = map(potValue, 0, 1023, 0, 180);
+
+    if (abs(angle - lastAngles[i]) > deadzone) {
+      servos[i].write(angle);
+      lastAngles[i] = angle;
+    }
+  }
+
+  delay(10);
+}
