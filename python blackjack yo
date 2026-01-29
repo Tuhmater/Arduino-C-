@@ -1,0 +1,38 @@
+import random
+
+# ---------- PLAYER TURN ----------
+player_total = random.randint(1, 11) + random.randint(1, 10)
+
+while player_total < 17:
+    player_total += random.randint(1, 10)
+
+print("Player total:", player_total)
+
+# Player busts
+if player_total > 21:
+    print("Loser (player busted)")
+    exit()
+
+# ---------- DEALER TURN ----------
+dealer_total = random.randint(1, 11) + random.randint(1, 10)
+
+print("Dealer starting total:", dealer_total)
+
+# Dealer already beats player
+if dealer_total > player_total:
+    print("Loser (dealer higher)")
+    print("Dealer:", dealer_total, "| Player:", player_total)
+    exit()
+
+# Dealer keeps drawing
+while dealer_total <= player_total:
+    dealer_total += random.randint(1, 10)
+
+# ---------- RESULTS ----------
+print("Final Dealer total:", dealer_total)
+print("Final Player total:", player_total)
+
+if dealer_total > 21:
+    print("Winner (dealer busted)")
+else:
+    print("Loser (dealer higher)")
