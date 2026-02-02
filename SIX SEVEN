@@ -1,0 +1,5 @@
+import random
+number=random.randint (1,67)
+while number<41:
+    print("cornball")
+    
