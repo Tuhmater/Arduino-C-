@@ -1,0 +1,9 @@
+def math():
+...     import random
+...     x=random.randint (1,5)
+...     y=random.randint (1,5)
+...     print (x*y)
+...     
+>>> 
+>>> math()
+6
