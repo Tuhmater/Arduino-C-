@@ -1,0 +1,40 @@
+def my_math(x, y, operation="add"):
+    
+    if operation == "add":
+        result = x + y
+        symbol = "+"
+        
+    elif operation == "subtract":
+        result = x - y
+        symbol = "-"
+        
+    elif operation == "multiply":
+        result = x * y
+        symbol = "*"
+        
+    elif operation == "divide":
+        if y == 0:
+            return "Error: Cannot divide by zero"
+        result = x / y
+        symbol = "/"
+        
+    else:
+        return "Error: Invalid operation"
+    
+    print("Operation:", operation.capitalize())
+    print("Equation:", x, symbol, y, "=", result)
+    
+    return result
+
+
+def main():
+    my_num_1 = 5
+    my_num_2 = 2
+    
+    my_math(my_num_1, my_num_2)              
+    my_math(my_num_1, my_num_2, "subtract")
+    my_math(my_num_1, my_num_2, "multiply")
+    my_math(my_num_1, my_num_2, "divide")
+
+
+main()
