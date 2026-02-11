@@ -1,0 +1,48 @@
+def my_math(x, y, operation="add"):
+    
+    if operation == "add":
+        result = x + y
+        symbol = "+"
+        
+    elif operation == "subtract":
+        result = x - y
+        symbol = "-"
+        
+    elif operation == "multiply":
+        result = x * y
+        symbol = "*"
+        
+    elif operation == "divide":
+        if y == 0:
+            print("Error: Cannot divide by zero")
+            return
+        result = x / y
+        symbol = "/"
+        
+    else:
+        print("Error: Invalid operation")
+        return
+    
+    print("Operation:", operation.capitalize())
+    print("Equation:", x, symbol, y, "=", result)
+    
+    return result
+
+
+def main():
+    
+
+    while True:
+        try:
+            x = float(input("Enter first number: "))
+            y = float(input("Enter second number: "))
+            break   # Exit loop if successful
+        except ValueError:
+            print("Invalid input. Please enter numeric values only.\n")
+    
+    operation = input("Enter operation (add, subtract, multiply, divide): ").lower()
+    
+    my_math(x, y, operation)
+
+
+main()
